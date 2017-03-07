@@ -1,0 +1,15 @@
+{
+"rec":{
+        "chr":"X",
+        "ref":"G",
+        "alt":"A",
+        "dp":4
+    }
+  }
+use gatk
+db.vcf.find()
+db.vcf.find({"rec.chr":"X")
+
+#for the region in between, AND command can fulfill this
+db.vcf.find({"X":{$gt:55172537},"X":{$lt:134713855})
+
