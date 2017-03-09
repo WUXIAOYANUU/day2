@@ -10,9 +10,8 @@ cat gatk_exome.vcf |bio-vcf --eval '[r.chr,r.pos]'
         "pos":<%=rec.pos%>,
         "ref":"<%=rec.ref%>",
         "alt":"<%=rec.alt[0]%>",
-        "dp":"<%=rec.info.dp%>",
-        "ann":'"<%=rec.info.ann%>"'
-    }
+        "dp":"<%=rec.info.dp%>"
+        }
   }
 # run it
 cat gatk_exome.vcf |bio-vcf --template gatk_yan.json |less
@@ -22,11 +21,12 @@ cat gatk_exome.vcf |bio-vcf --template gatk_yan.json > gatk_exome.json
 mongoimport --db gatk --collection vcf --drop --file gatk_exome.json --jsonArray
 
 
-
+# get all the samples either depth greater than 3 or less than 7
 db.vcf.find()
-db.vcf.find({"rec.ann":{'$regex':'ENST00000263967'}}).count()
+db.vcf.find({"rec.dp":{$gt:3,$lt:7}})
 
 assignment 2 Write a Python mongo script which queries the PIK3CA file 
+# create a template
 {
   "rec":{
        "chr":"<%=rec.chrom%>",
@@ -44,8 +44,9 @@ assignment 2 Write a Python mongo script which queries the PIK3CA file
 }
 }
 
+# count the number of the depth either greater than 3 or less than 7
 db.vcf.find()
-
+db.vcf.find({"rec.dp":{$gt:3,$lt:7}}).count()
 
 
 
