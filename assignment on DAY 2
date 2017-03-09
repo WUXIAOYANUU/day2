@@ -47,11 +47,3 @@ assignment 2 Write a Python mongo script which queries the PIK3CA file
 # count the number of the depth either greater than 3 or less than 7
 db.vcf.find()
 db.vcf.find({"rec.dp":{$gt:3,$lt:7}}).count()
-
-
-
-
-
-
-db.vcf.find({"X":{$gt:55172537},"X":{$lt:134713855})
-
