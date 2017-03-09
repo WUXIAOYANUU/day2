@@ -1,3 +1,9 @@
+assignment 1 Write a script which queries the PIK3CA VCF file for the annotation
+
+# extract data from bio-vcf
+cat gatk_exome.vcf |bio-vcf --eval '[r.chr,r.pos]'
+
+# generate a template with vi,Esc :x after insertion.
 {
 "rec":{
         "chr":"<%=rec.chrom%>",
@@ -8,11 +14,19 @@
         "ann":'"<%=rec.info.ann%>"'
     }
   }
-use gatk
+# run it
+cat gatk_exome.vcf |bio-vcf --template gatk_yan.json |less
+cat gatk_exome.vcf |bio-vcf --template gatk_yan.json > gatk_exome.json
+
+#import to mongo
+mongoimport --db gatk --collection vcf --drop --file gatk_exome.json --jsonArray
+
+
+
 db.vcf.find()
 db.vcf.find({"rec.ann":{'$regex':'ENST00000263967'}}).count()
 
-assignment 2
+assignment 2 Write a Python mongo script which queries the PIK3CA file 
 {
   "rec":{
        "chr":"<%=rec.chrom%>",
